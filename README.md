@@ -1,114 +1,104 @@
-## 📄 **Index.tsx - Dashboard Page**
+# 🎓 Study Partner Finder — Frontend
 
-This page is the central hub of the user's dashboard, where they can interact with posts, track habits, and join community activities. The page provides a smooth experience with features like infinite scrolling and content filtering.
+A modern web app that helps students find compatible **study partners**, **share posts**, **track habits**, and **join live study sessions** — built with **React** and **Tailwind CSS**.
 
----
-
-### 🔑 **Key Features**:
-
-* **Navbar**: A toggleable navigation bar to switch between sections and manage the sidebar.
-* **Welcome Section**: A section that welcomes the user and encourages engagement.
-* **CreatePostCard**: Lets users create and share new posts with the community.
-* **FeedCard**: Displays individual posts, including user posts and habit completions.
-* **HabitCard**: Tracks and displays the user's habits, showing streaks and completion messages.
-* **Infinite Scroll**: Automatically loads more posts as the user scrolls down.
+This repository contains the **frontend** of the Study Partner Finder project, connecting to a **PHP backend** and a **Go service** for smart user matching.
 
 ---
 
-### 📋 **How it Works**:
+## 🚀 Features
 
-1. **Infinite Scroll with `useInfinitePosts`**:
-
-   * Fetches posts dynamically as the user scrolls, keeping the feed fresh and engaging.
-   * Displays loading spinners when new posts are being fetched.
-
-2. **Filtering Posts**:
-
-   * Users can toggle between different filters: **'All'**, **'Habits'**, and **'Community'**.
-   * Filter buttons highlight the active selection for easy navigation.
-
-3. **Interactive Feed**:
-
-   * Posts are displayed with various content types, including user updates and habit completions.
-   * Each post contains actions like likes, comments, and user interactions.
+* 🧩 **Dashboard:** Central hub showing posts, habits, and community activities
+* 👤 **Profile:** Manage user info, habits, and study connections
+* 🤝 **Find Partner:** Match with study partners based on subjects and schedules
+* 💬 **Posts & Habits:** Create posts, share progress, and track daily study habits
+* 🎥 **Meeting Plugin Integration:** Join real-time study sessions seamlessly
+* 🔁 **Infinite Scroll:** Smooth post loading for a modern social-feed experience
+* 📱 **Responsive UI:** Optimized for desktop and mobile users
 
 ---
 
-### ⚙️ **Components in Use**:
+## 🛠️ Tech Stack
 
-* **Navbar**: Contains options for toggling the sidebar and navigation.
-* **CreatePostCard**: A form to create a new post.
-* **FeedCard**: A card to display user-generated content.
-* **HabitCard**: Displays progress for user habits like writing or exercising.
-* **StudyRoomsSection**: A sidebar section showing available study rooms (visible on larger screens).
-
----
-
-### 🚀 **Infinite Scroll**:
-
-* **Dynamic Loading**: New posts automatically load as the user scrolls to the bottom of the feed.
-* **Pagination Support**: The system fetches posts in batches (chunks), offering a seamless experience.
-* **Optimized Fetching**: The page intelligently fetches posts when the user reaches near the end of the feed.
+* **Frontend:** React + TypeScript
+* **Styling:** Tailwind CSS
+* **State Management:** React Hooks (`useState`, `useEffect`)
+* **Data Fetching:** Custom hook (`useInfinitePosts`)
+* **Backend:** PHP (API + database)
+* **Matching Engine:** Go (Golang)
+* **Meeting Plugin:** Integrated 3rd-party service
 
 ---
 
-### 💡 **How to Use**:
+## 📂 Project Structure
 
-1. The user interacts with the feed by selecting filters (like **'My Habits'** or **'Community'**).
-2. As they scroll, more posts will appear without needing to refresh the page.
-3. Users can create new posts using the **CreatePostCard**.
-4. Habit progress can be tracked via **HabitCard**.
-
----
-
-### 🔧 **Tech Stack**:
-
-* **React** for rendering components.
-* **Tailwind CSS** for styling.
-* **useInfinitePosts** for dynamic data fetching and infinite scroll.
----
-
-### 👤 **Profile.tsx - User Profile Page**
-
-This is the page where users can manage their profiles, see quick stats, track habits, and interact with recent activity.
-
-#### 🔑 **Key Components**:
-
-* **ProfileCard**: Displays user information such as name, email, and activity streak.
-* **QuickStats**: Shows stats like membership duration and active subjects.
-* **RecentActivity**: A feed showing the latest activities related to the user.
-* **HabitsTracker**: Tracks user habits, showing current streaks and progress.
-* **ConnectionsList**: Displays a list of study connections, showing their status and subjects.
-
-#### ⚙️ **Features**:
-
-* 🛠️ **Edit Profile**: Update profile information and preferences.
-* 📊 **Tabs**: Switch between the 'Profile', 'Habits', and 'Activity' tabs.
-* 🏅 **Habit Progress**: Visualize and track habits with streaks.
+```
+src/
+├── components/
+│   ├── Navbar.tsx
+│   ├── FeedCard.tsx
+│   ├── HabitCard.tsx
+│   ├── CreatePostCard.tsx
+│   ├── ProfileCard.tsx
+│   └── MatchResultModal.tsx
+├── pages/
+│   ├── Index.tsx          # Dashboard Page
+│   ├── Profile.tsx        # User Profile Page
+│   └── FindPartner.tsx    # Partner Finder Page
+└── hooks/
+    └── useInfinitePosts.ts
+```
 
 ---
 
-### 🤝 **FindPartner.tsx - Study Partner Finder**
+## ⚙️ Installation
 
-This component helps users find study partners based on subjects, schedules, and study preferences.
+```bash
+# Clone the repository
+git clone https://github.com/ayia-hosni/study-sync-frontend.git
 
-#### 🔑 **Key Components**:
+# Navigate into the project
+cd study-partner-frontend
 
-* **SubjectSelector**: Allows users to select the subjects they need help with.
-* **StudyScheduler**: Lets users select available study times.
-* **StudyPreferences**: Collects additional study preferences like learning style.
-* **MatchResultModal**: Displays results for matching study partners, including options to join sessions or view details.
+# Install dependencies
+npm install
 
-#### ⚙️ **Features**:
+# Start the development server
+npm run dev
+```
 
-* 🔍 **Find Partner**: Users can click to find a study partner based on their preferences.
-* 🗓️ **Schedule**: Match with study partners based on available time slots.
-* 💬 **Modal**: Displays match details and lets users join study sessions or edit preferences.
+App will run on **[http://localhost:3000](http://localhost:3000)**
 
 ---
 
-### 🌟 **Overall Features Across Components**
+## 🌐 Environment Variables
 
-* **Responsive Design**: Each page adapts to mobile and desktop layouts.
-* **User Interaction**: Buttons, modals, and inputs allow users to interact with their profiles and other components.
-* **State Management**: Use of `useState` and `useEffect` hooks to manage state and effects (like fetching posts or showing modals).
+Create a `.env` file and add:
+
+```
+VITE_API_URL=https://your-backend-api.com
+VITE_MEET_PLUGIN_KEY=your_plugin_key
+```
+
+---
+
+## 📖 Component Documentation
+
+Detailed docs available for each page:
+
+* [Dashboard (Index.tsx)](#)
+* [Profile Page (Profile.tsx)](#)
+* [Study Partner Finder (FindPartner.tsx)](#)
+
+---
+
+## 🤝 Contributing
+
+Contributions and feedback are welcome!
+Open an issue or submit a pull request.
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
