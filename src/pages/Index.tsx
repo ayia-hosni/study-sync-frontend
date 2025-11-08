@@ -7,10 +7,13 @@ import { FeedCard } from '@/components/dashboard/FeedCard';
 import { StudyRoomsSection } from '@/components/dashboard/StudyRoomsSection';
 import { Badge } from '@/components/ui/badge';
 import { useInfinitePosts } from '@/hooks/usePosts';
+import { formatDistanceToNow } from 'date-fns';
 
 const Index = () => {
   const [activeFilter, setActiveFilter] = useState<'all' | 'habits' | 'community'>('all');
   const [showSidebar, setShowSidebar] = useState(false);
+  const [localPosts, setLocalPosts] = useState<any[]>([]);
+
 
   const feedFilters = [
     { key: 'all' as const, label: 'All', active: true },
@@ -53,7 +56,10 @@ const Index = () => {
         <WelcomeSection />
         <div className="flex gap-8 w-full relative">
           <main className={`flex-1 transition-all duration-300 ${showSidebar ? 'lg:max-w-[829px]' : 'w-full'} bg-white dark:bg-[#18181b]`}>
-            <CreatePostCard />
+            <CreatePostCard
+  onPostCreated={(newPost) => setLocalPosts((prev) => [newPost, ...prev])}
+/>
+
 
             {/* Feed Navbar */}
             <Navbar className="flex items-center justify-between mb-6 bg-transparent">
@@ -177,22 +183,31 @@ const Index = () => {
               {postsError && (
                 <div className="text-red-500 text-center py-6">Failed to load posts.</div>
               )}
-              {postsData?.flat.map((post) => (
-                <FeedCard
-                  key={post.id}
-                  type={post.type === 'habit-completion' ? 'habit-completion' : 'user-post'}
-                  roomName={post.room?.id ? `Room ${post.room.id}` : ''}
-                  timeAgo={post.created_at}
-                  userInitial={post.author?.id?.[0] || 'U'}
-                  userName={post.author?.id || 'Unknown'}
-                  userAction={post.type === 'habit-completion' ? 'completed' : 'shared in room'}
-                  content={post.content}
-                  category={post.type}
-                  images={post.media_urls || []}
-                  likes={18}
-                comments={0}
-                />
-              ))}
+              {[...localPosts, ...(postsData?.flat || [])].map((post) => (
+<FeedCard
+  key={post.id}
+  type={post.type === 'habit-completion' ? 'habit-completion' : 'user-post'}
+  roomName={post.room?.id ? `Room ${post.room.id}` : ''}
+    timeAgo={formatDistanceToNow(new Date(post.created_at), { addSuffix: true })} 
+  userInitial={post.author?.full_name?.[0] || 'U'}
+  userName={post.author?.full_name || 'Unknown'}
+  userAction={
+    post.type === 'habit-completion'
+      ? post.room?.id
+        ? 'completed'
+        : 'completed' 
+      : 'shared publicly'
+  }
+  content={post.content}
+  category={post.type}
+  images={post.media_urls || []}
+  likes={18}
+  comments={0}
+/>
+
+))}
+
+
               {/* Infinite scroll anchor */}
               <div ref={feedEndRef}></div>
               {isFetchingNextPage && (

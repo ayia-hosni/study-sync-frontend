@@ -171,10 +171,13 @@ export const FeedCard: React.FC<FeedCardProps> = ({
             {userName} {userAction}
           </h3>
           <p className="text-[#7E7E7E] dark:text-neutral-300 text-xs font-normal leading-4">
-            {type === 'user-post' ? 'shared publicly' : 
-             type === 'habit-completion' ? 'shared in room' : 
-             'habit in room'}
-          </p>
+  {type === 'user-post'
+    ? 'shared publicly'
+    : type === 'habit-completion'
+      ? roomName ? 'shared in room' : '' 
+      : 'habit in room'}
+</p>
+
         </div>
         <Badge 
           variant={categoryColor === 'green' ? 'green' : 'purple'} 
