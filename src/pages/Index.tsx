@@ -168,7 +168,7 @@ const Index = () => {
                 content="Crushed a 45-minute HIIT session this morning! 💪 The endorphins are real. Who else is getting their sweat on today?"
                 category="Fitness"
                 categoryColor="green"
-                likes={18}
+                likes={0}
                 comments={5}
                 hasSupport={true}
               />
@@ -188,9 +188,10 @@ const Index = () => {
   key={post.id}
   type={post.type === 'habit-completion' ? 'habit-completion' : 'user-post'}
   roomName={post.room?.id ? `Room ${post.room.id}` : ''}
-    timeAgo={formatDistanceToNow(new Date(post.created_at), { addSuffix: true })} 
+  timeAgo={formatDistanceToNow(new Date(post.created_at), { addSuffix: true })} 
   userInitial={post.author?.full_name?.[0] || 'U'}
   userName={post.author?.full_name || 'Unknown'}
+  userId={post.author?.id}    // <-- added: pass author id so name is clickable
   userAction={
     post.type === 'habit-completion'
       ? post.room?.id
@@ -201,10 +202,9 @@ const Index = () => {
   content={post.content}
   category={post.type}
   images={post.media_urls || []}
-  likes={18}
+  likes={0}
   comments={0}
 />
-
 ))}
 
 

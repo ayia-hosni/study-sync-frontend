@@ -91,6 +91,16 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
+
+              {/* Profile routes: support both current user and viewing another user by id */}
+              <Route
+                path="/profile/:id"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/profile"
                 element={
@@ -99,6 +109,7 @@ const App = () => (
                   </ProtectedRoute>
                 }
               />
+
               <Route
                 path="/settings"
                 element={

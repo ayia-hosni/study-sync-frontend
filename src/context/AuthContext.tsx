@@ -26,7 +26,11 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+  const stored = localStorage.getItem("user");
+  return stored ? JSON.parse(stored) : null;
+});
+
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     return localStorage.getItem("token") != null;
   });
@@ -39,6 +43,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const { token, user } = data.login;
 
       localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
       setUser(user);
       setIsAuthenticated(true);
 
@@ -53,6 +58,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(null);
     setIsAuthenticated(false);
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
   };
 
   return (

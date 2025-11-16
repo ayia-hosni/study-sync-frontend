@@ -3,6 +3,7 @@ import { Badge } from '../ui/badge';
 
 interface FeedCardProps {
   type: 'user-post' | 'habit-completion' | 'room-activity';
+  userId?: number | string; // new prop
   emoji?: string;
   roomName?: string;
   timeAgo: string;
@@ -32,6 +33,7 @@ interface Comment {
 
 export const FeedCard: React.FC<FeedCardProps> = ({
   type,
+  userId, // accept new prop
   emoji,
   roomName,
   timeAgo,
@@ -168,7 +170,20 @@ export const FeedCard: React.FC<FeedCardProps> = ({
         </div>
         <div className="flex-1">
           <h3 className="text-[#202020] dark:text-white text-sm font-bold leading-5">
-            {userName} {userAction}
+            {/* Make username clickable when userId is available */}
+            {userId ? (
+              <button
+                type="button"
+                onClick={() => { window.location.href = `/profile/${userId}`; }}
+                className="inline-block mr-2 text-left hover:underline"
+                aria-label={`Open profile of ${userName}`}
+              >
+                {userName}
+              </button>
+            ) : (
+              <span className="mr-2">{userName}</span>
+            )}
+            <span className="text-sm font-normal">{userAction}</span>
           </h3>
           <p className="text-[#7E7E7E] dark:text-neutral-300 text-xs font-normal leading-4">
   {type === 'user-post'

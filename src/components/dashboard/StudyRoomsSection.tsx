@@ -105,7 +105,18 @@ export const StudyRoomsSection: React.FC = () => {
             <div className="fixed inset-0 z-50 bg-black bg-opacity-40" onClick={() => setShowCreateRoom(false)} />
             <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
               <div className="pointer-events-auto">
-                <CreateRoomModal onClose={() => setShowCreateRoom(false)} />
+{showCreateRoom && (
+  <CreateRoomModal
+    isOpen={showCreateRoom}
+    onClose={() => setShowCreateRoom(false)}
+    onMatchingPage={() => {
+      window.location.href = 'http://localhost:8080/find-partner';
+    }}
+    onInviteConnection={() => {
+      console.log('Inviting connections...');
+    }}
+  />
+)}
               </div>
             </div>
           </>
